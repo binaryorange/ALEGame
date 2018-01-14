@@ -1,0 +1,8 @@
+#################################################################################
+# This ignore file ignores everything in Assets that isn't _source, _prefabs,
+# _materials, _models or any subsequent .meta files
+#################################################################################
+
+/PostProcessing/
+/ProCore/
+/TextMesh Pro/

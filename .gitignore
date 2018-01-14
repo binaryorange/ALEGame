@@ -1,0 +1,18 @@
+#################################################################################
+# Global .gitignore. Ignores everything.  We'll whitelist what we want to commit
+#################################################################################
+/*
+/*/
+
+# Git meta files
+!.gitignore
+!.gitattributes
+!README.md
+
+# Whitelisted directories/files
+!/ProjectSettings/
+!/Assets/
+
+#################################################################################
+# NOTE: See "Assets" folder for a .gitignore for sub directories in Assets
+#################################################################################

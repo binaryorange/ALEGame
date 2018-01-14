@@ -11,7 +11,7 @@ public class MainMenuHandler : MonoBehaviour {
 	 * Start() method
 	 *****************************************************/
 	void Start() {
-		GlobalGameManager.Instance.StartState ();
+		GlobalGameManager.Instance.InitializeGameManager();
 	}
 
 	// create our start button function

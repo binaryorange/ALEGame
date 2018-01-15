@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class TestingSavingLoading : MonoBehaviour {
@@ -22,18 +23,25 @@ public class TestingSavingLoading : MonoBehaviour {
 
 	// save the level
 	public void Save() {
-		GlobalGameManager.Instance.SaveGame ("test");
+		GlobalGameManager.Instance.SaveGame (GlobalGameManager.Instance.GetSelectedGameFile());
 		Debug.Log ("Saved Game");
 	}
 
 	// load the level
 	public void Load() {
-		GlobalGameManager.Instance.LoadGame ("test");
+		GlobalGameManager.Instance.LoadGame (GlobalGameManager.Instance.GetSelectedGameFile());
 		Debug.Log ("Load Game");
 	}
 
 	// reset values
 	public void Reset() {
-		GlobalGameManager.Instance.StartNewGame ("test");
+		GlobalGameManager.Instance.StartNewGame (GlobalGameManager.Instance.GetSelectedGameFile());
+	}
+
+	// select game files
+	public void SetGame(string GameName) {
+		GlobalGameManager.Instance.SetSelectedGameFile (GameName+".alesf");
+
+		Debug.Log ("Game File set to " + GlobalGameManager.Instance.GetSelectedGameFile());
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GlobalGameManager : MonoBehaviour {
@@ -12,7 +13,7 @@ public class GlobalGameManager : MonoBehaviour {
 	 * as health status, powerup useages and other types of persistent data. 
 	 * NOTE: See bottom of file for PlayerData class which is used to save data */
 
-	// This is the reference to the manager
+	// This is the reference to the manager's instance
 	private static GlobalGameManager instance;
 
 	// this is the reference to manager GameObject
@@ -51,9 +52,58 @@ public class GlobalGameManager : MonoBehaviour {
 	}
 
 	/**************************************************************************************
-	 * These are the values that are needed to be stored in order for the game to function
-	 * properly. All are private unless otherwise noted
+	 * NOTE: See "PlayerData" class at bottom of file to see all the attributes the Player
+	 * object has access to
 	 * ************************************************************************************/
+
+	// create a new PlayerData object
+	public PlayerData Player = new PlayerData();
+
+	/**************************************************************************************
+	 * These functions handle the GlobalGameManager states at runtime
+	 **************************************************************************************/
+
+	// This initializes the game manager, which for now stores the GameManager gameobject so it can't be destroyed between scenes
+	public void InitializeGameManager() {
+		GameManager = GameObject.Find ("GlobalGameManager");
+		GameManager.tag = "GlobalGameManager";
+	}
+
+	// This starts a new game
+	public void StartNewGame(string SelectedGameFile) {
+		// TODO: add NEW GAME details here
+	}
+
+	// This loads a game
+	public void LoadGame(string SelectedGameFile) {
+		// check to see if the game file exists
+		if(File.Exists(Application.persistentDataPath+"/"+SelectedGameFile)) {
+			// create a binary formatter and file path to read from
+			BinaryFormatter bf = new BinaryFormatter();
+			FileStream file = File.Open (Application.persistentDataPath+"/"+SelectedGameFile, FileMode.Open);
+			PlayerData pData = (PlayerData)bf.Deserialize (file);
+			file.Close ();
+
+			// pass the data from pData back to the main player object
+			Player = pData;
+		}
+	}
+
+	// This saves a game
+	public void SaveGame(string SelectedGameFile) {
+		// create a binary formatter and file path
+		BinaryFormatter bf = new BinaryFormatter();
+		FileStream file = File.Create (Application.persistentDataPath+"/"+SelectedGameFile);
+
+		// serialize the file
+		bf.Serialize(file, Player);
+		file.Close ();
+	}
+}
+
+[Serializable]
+public class PlayerData
+{
 	// These store what world/level the player is in
 	private string WorldName; 
 	private string LevelName;
@@ -131,7 +181,10 @@ public class GlobalGameManager : MonoBehaviour {
 
 	// Getters
 	public string GetWorldName() { return WorldName; }
-	public string GetLevelName() { return LevelName; }
+	public string GetLevelName() { 
+		Scene scene = SceneManager.GetActiveScene ();
+		return scene.name;
+	}
 	public int GetCurrentLevel() { return CurrentLevel; }
 	public int GetCurrentXP() { return CurrentXP; }
 	public int GetCurrentHealth() { return CurrentHealth; }
@@ -142,93 +195,4 @@ public class GlobalGameManager : MonoBehaviour {
 	public int GetCurrentDooDads() { return CurrentDooDads; }
 	public int GetCurrentGizmos() { return CurrentGizmos; }
 	public int GetCurrentComponents() { return CurrentComponents; }
-
-	/**************************************************************************************
-	 * These functions handle the GlobalGameManager states at runtime
-	 **************************************************************************************/
-
-	// This initializes the game manager, which for now stores the GameManager gameobject so it can't be destroyed between scenes
-	public void InitializeGameManager() {
-		GameManager = GameObject.Find ("GlobalGameManager");
-		GameManager.tag = "GlobalGameManager";
-	}
-
-	// This starts a new game
-	public void StartNewGame(string SelectedGameFile) {
-		// TODO: add NEW GAME details here
-	}
-
-	// This loads a game
-	public void LoadGame(string SelectedGameFile) {
-		// check to see if the game file exists
-		if(File.Exists(Application.persistentDataPath+"/"+SelectedGameFile)) {
-			// create a binary formatter and file path to read from
-			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open (Application.persistentDataPath+"/"+SelectedGameFile, FileMode.Open);
-			PlayerData pData = (PlayerData)bf.Deserialize (file);
-			file.Close ();
-
-			// pass the data from pData back to the game
-			SetWorldName (pData.WorldName);
-			SetLevelName (pData.LevelName);
-			SetCurrentLevel (pData.CurrentLevel);
-			SetCurrentXP (pData.CurrentXP);
-			SetCurrentHealth (pData.CurrentHealth);
-			SetCurrentPower (pData.CurrentPower);
-			SetCurrentWeapon (pData.CurrentWeapon);
-			SetCurrentAmmo (pData.CurrentAmmo);
-			SetCurrentScrews (pData.CurrentScrews);
-			SetCurrentDooDads (pData.CurrentDooDads);
-			SetCurrentGizmos (pData.CurrentGizmos);
-			SetCurrentComponents (pData.CurrentComponents);
-		}
-	}
-
-	// This saves a game
-	public void SaveGame(string SelectedGameFile) {
-		// create a binary formatter and file path
-		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create (Application.persistentDataPath+"/"+SelectedGameFile);
-
-		// now create our playerdata object to store the data
-		PlayerData pData = new PlayerData ();
-		pData.WorldName = GetWorldName ();
-		pData.LevelName = GetLevelName ();
-		pData.CurrentLevel = GetCurrentLevel ();
-		pData.CurrentXP = GetCurrentXP ();
-		pData.CurrentHealth = GetCurrentHealth ();
-		pData.CurrentPower = GetCurrentPower ();
-		pData.CurrentWeapon = GetCurrentWeapon ();
-		pData.CurrentAmmo = GetCurrentAmmo ();
-		pData.CurrentScrews = GetCurrentScrews ();
-		pData.CurrentDooDads = GetCurrentDooDads ();
-		pData.CurrentGizmos = GetCurrentGizmos ();
-		pData.CurrentComponents = GetCurrentComponents ();
-
-		// serialize the file
-		bf.Serialize(file, pData);
-		file.Close ();
-	}
-}
-
-[Serializable]
-class PlayerData
-{
-	// These are the fields that will "copy" over the data from the GlobalGameManager class so that we can save it out to file
-	// These store what world/level the player is in
-	public string WorldName; 
-	public string LevelName;
-
-	// These are the player's current attributes, modifiable at runtime
-	public int CurrentLevel;
-	public int CurrentXP;
-	public int CurrentHealth;
-	public int CurrentPower;
-	public int CurrentWeapon;
-	public int CurrentAmmo;  // NOTE: May change to array later to store different types of ammo
-	public int CurrentScrews;
-	public int CurrentDooDads;
-	public int CurrentGizmos;
-	public int CurrentComponents;
-	public bool[] CurrentPlugins; 
 }

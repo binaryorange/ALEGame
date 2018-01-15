@@ -71,7 +71,21 @@ public class GlobalGameManager : MonoBehaviour {
 
 	// This starts a new game
 	public void StartNewGame(string SelectedGameFile) {
-		// TODO: add NEW GAME details here
+		// initialize new game variables
+		Player.WorldName = "";
+		Player.LevelName = "test";
+		Player.CurrentLevel = 1;
+		Player.CurrentXP = 0;
+		Player.CurrentHealth = 100;
+		Player.CurrentPower = 100;
+		Player.CurrentWeapon = 0;
+		Player.CurrentAmmo = 0;
+		Player.CurrentScrews = 0;
+		Player.CurrentDooDads = 0;
+		Player.CurrentGizmos = 0;
+		Player.CurrentComponents = 0;
+
+		Debug.Log ("Values Reset");
 	}
 
 	// This loads a game
@@ -105,94 +119,19 @@ public class GlobalGameManager : MonoBehaviour {
 public class PlayerData
 {
 	// These store what world/level the player is in
-	private string WorldName; 
-	private string LevelName;
+	public string WorldName; 
+	public string LevelName;
 
 	// These are the player's current attributes, modifiable at runtime
-	private int CurrentLevel;
-	private int CurrentXP;
-	private int CurrentHealth;
-	private int CurrentPower;
-	private int CurrentWeapon;
-	private int CurrentAmmo;  // NOTE: May change to array later to store different types of ammo
-	private int CurrentScrews;
-	private int CurrentDooDads;
-	private int CurrentGizmos;
-	private int CurrentComponents;
-	private bool[] CurrentPlugins; 
-
-	/**************************************************************************************
-	 * These are the getters and setters for the player's attributes
-	 **************************************************************************************/
-
-	// setters
-	public void SetWorldName(string Name) {
-		WorldName = Name;
-	}
-
-	public void SetLevelName(string Name) {
-		LevelName = Name;
-	}
-
-	public void SetCurrentLevel(int Amount) {
-		CurrentLevel += Amount;	
-	}
-
-	public void SetCurrentXP(int Amount) {
-		CurrentXP += Amount;
-		// TODO: Add level incrementing when XP reaches target XP
-	}
-
-	public void SetCurrentHealth(int Amount) {
-		CurrentHealth += Amount;
-	}
-
-	public void SetCurrentPower(int Amount) {
-		CurrentPower += Amount;
-	}
-
-	public void SetCurrentWeapon (int WeaponID) {
-		CurrentWeapon = WeaponID;
-	}
-
-	public void SetCurrentAmmo (int Amount) {
-		CurrentAmmo += Amount;
-	}
-
-	public void SetCurrentScrews(int Amount) {
-		CurrentScrews += Amount;
-	}
-
-	public void SetCurrentDooDads(int Amount) {
-		CurrentDooDads += Amount;
-	}
-
-	public void SetCurrentGizmos(int Amount) {
-		CurrentGizmos += Amount;
-	}
-
-	public void SetCurrentComponents(int Amount) {
-		CurrentComponents += Amount;
-	}
-
-	public void SetCurrentPlugin () {
-		//TODO: Figure out how to make plugins work
-	}
-
-	// Getters
-	public string GetWorldName() { return WorldName; }
-	public string GetLevelName() { 
-		Scene scene = SceneManager.GetActiveScene ();
-		return scene.name;
-	}
-	public int GetCurrentLevel() { return CurrentLevel; }
-	public int GetCurrentXP() { return CurrentXP; }
-	public int GetCurrentHealth() { return CurrentHealth; }
-	public int GetCurrentPower() { return CurrentPower; }
-	public int GetCurrentWeapon() { return CurrentWeapon; }
-	public int GetCurrentAmmo() { return CurrentAmmo; }
-	public int GetCurrentScrews() { return CurrentScrews; }
-	public int GetCurrentDooDads() { return CurrentDooDads; }
-	public int GetCurrentGizmos() { return CurrentGizmos; }
-	public int GetCurrentComponents() { return CurrentComponents; }
+	public int CurrentLevel;
+	public int CurrentXP;
+	public int CurrentHealth;
+	public int CurrentPower;
+	public int CurrentWeapon;
+	public int CurrentAmmo;  // NOTE: May change to array later to store different types of ammo
+	public int CurrentScrews;
+	public int CurrentDooDads;
+	public int CurrentGizmos;
+	public int CurrentComponents;
+	public bool[] CurrentPlugins; 
 }

@@ -6,18 +6,18 @@ public class TestingSavingLoading : MonoBehaviour {
 
 	// call the SetCurrentXP method
 	public void IncreaseXP() {
-		GlobalGameManager.Instance.Player.SetCurrentXP (1);
-		Debug.Log ("Player XP now at: " + GlobalGameManager.Instance.Player.GetCurrentXP ());
+		GlobalGameManager.Instance.Player.CurrentXP += 1;
+		Debug.Log ("Player XP now at: " + GlobalGameManager.Instance.Player.CurrentXP);
 	}
 
 	public void DecreaseXP() {
-		GlobalGameManager.Instance.Player.SetCurrentXP (-1);
-		Debug.Log ("Player XP now at: " + GlobalGameManager.Instance.Player.GetCurrentXP ());
+		GlobalGameManager.Instance.Player.CurrentXP -= 1;
+		Debug.Log ("Player XP now at: " + GlobalGameManager.Instance.Player.CurrentXP);
 	}
 
 	// find out what level we're in
 	public void GetLevelName() {
-		Debug.Log("Level name: " + GlobalGameManager.Instance.Player.GetLevelName ());
+		Debug.Log("Level name: " + GlobalGameManager.Instance.Player.LevelName);
 	}
 
 	// save the level
@@ -30,5 +30,10 @@ public class TestingSavingLoading : MonoBehaviour {
 	public void Load() {
 		GlobalGameManager.Instance.LoadGame ("test");
 		Debug.Log ("Load Game");
+	}
+
+	// reset values
+	public void Reset() {
+		GlobalGameManager.Instance.StartNewGame ("test");
 	}
 }

@@ -11,14 +11,14 @@ public class MainMenuHandler : MonoBehaviour {
 	 * Start() method
 	 *****************************************************/
 	void Start() {
-		GlobalGameManager.Instance.InitializeGameManager();
+		StateManager.Instance.InitializeGameManager();
 	}
 
 	// create our start button function
 	public void StartGame(string sceneToStart) {
 
 		//load the test level
-		DontDestroyOnLoad(GlobalGameManager.Instance.GameManager);
+		DontDestroyOnLoad(StateManager.Instance.GameManager);
 		SceneManager.LoadScene(sceneToStart, LoadSceneMode.Single);
 	}
 }

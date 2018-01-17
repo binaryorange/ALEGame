@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
+// PlayerData class, used to hold all data for the player object in the game
 public class PlayerData {
 	// This bool determines if the currently selected game file is in use
 	// If it isn't, we can safely use it
@@ -23,5 +24,8 @@ public class PlayerData {
 	public int CurrentDooDads;
 	public int CurrentGizmos;
 	public int CurrentComponents;
-	public bool[] CurrentPlugins; 
+	public Plugin testPlugin;
+
+	//TODO: getters
+	//TODO: setters
 }

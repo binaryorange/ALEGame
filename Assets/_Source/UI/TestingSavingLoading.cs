@@ -9,18 +9,18 @@ public class TestingSavingLoading : MonoBehaviour {
 
 	// call the SetCurrentXP method
 	public void IncreaseXP() {
-		StateManager.Instance.Player.CurrentXP += 1;
-		Debug.Log ("Player XP now at: " + StateManager.Instance.Player.CurrentXP);
+		StateManager.Instance.Player.SetCurrentXP(1);
+		Debug.Log ("Player XP now at: " + StateManager.Instance.Player.GetCurrentXP());
 	}
 
 	public void DecreaseXP() {
-		StateManager.Instance.Player.CurrentXP -= 1;
-		Debug.Log ("Player XP now at: " + StateManager.Instance.Player.CurrentXP);
+		StateManager.Instance.Player.SetCurrentXP(-1);
+		Debug.Log ("Player XP now at: " + StateManager.Instance.Player.GetCurrentXP());
 	}
 
 	// find out what level we're in
 	public void GetLevelName() {
-		Debug.Log("Level name: " + StateManager.Instance.Player.LevelName);
+		Debug.Log("Level name: " + StateManager.Instance.Player.GetLevelName());
 	}
 
 	// save the level

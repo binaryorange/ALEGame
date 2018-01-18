@@ -5,7 +5,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+/// This is the StateManager. It's a global singleton class that handles all of the
+/// data inside of the game. Creates a single Player object that's accessed through the StateManager.Instance.Player syntax
 public class StateManager : MonoBehaviour {
 	/* StateManager class will handle all data in the game, persistent and temporary.
 	 * File handling for Save Games will be handled in FileManager.cs.

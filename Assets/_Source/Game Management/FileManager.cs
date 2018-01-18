@@ -16,19 +16,20 @@ public class FileManager {
 		if (!IsSelectedGameFileInUse (GameFile)) {
 			// initialize the default game values, and then save the file so that these values are
 			// stored into memory properly
-			PlayerInfoToCreate.bIsGameFileInUse = true; // what we use to determine if the file is blank or not, for debug purposes
-			PlayerInfoToCreate.WorldName = "";
-			PlayerInfoToCreate.LevelName = "test";
-			PlayerInfoToCreate.CurrentLevel = 1;
-			PlayerInfoToCreate.CurrentXP = 0;
-			PlayerInfoToCreate.CurrentHealth = 100;
-			PlayerInfoToCreate.CurrentPower = 100;
-			PlayerInfoToCreate.CurrentWeapon = 0;
-			PlayerInfoToCreate.CurrentAmmo = 0;
-			PlayerInfoToCreate.CurrentScrews = 0;
-			PlayerInfoToCreate.CurrentDooDads = 0;
-			PlayerInfoToCreate.CurrentGizmos = 0;
-			PlayerInfoToCreate.CurrentComponents = 0;
+			PlayerInfoToCreate.SetGameFileInUse(true); // what we use to determine if the file is blank or not, for debug purposes
+			PlayerInfoToCreate.SetWorldName("test");
+			PlayerInfoToCreate.SetLevelName("test");
+			PlayerInfoToCreate.SetCurrentLevel(1);
+			PlayerInfoToCreate.SetCurrentXP(0.0f);
+			PlayerInfoToCreate.SetCurrentHealth(100.0f);
+			PlayerInfoToCreate.SetCurrentPower(100.0f);
+			PlayerInfoToCreate.SetCurrentWeapon(0);
+			PlayerInfoToCreate.SetCurrentAmmo(0);
+			PlayerInfoToCreate.SetCurrentScrews(0);
+			PlayerInfoToCreate.SetCurrentDooDads(0);
+			PlayerInfoToCreate.SetCurrentGizmos(0);
+			PlayerInfoToCreate.SetCurrentComponents(0);
+			PlayerInfoToCreate.SetCurrentPlugin (Plugin.PluginAction.Default);
 
 			// now save the file to disk
 			SaveGame(GameFile, PlayerInfoToCreate);
@@ -73,7 +74,7 @@ public class FileManager {
 
 			PlayerData data = (PlayerData)bf.Deserialize (file);
 
-			return data.bIsGameFileInUse;
+			return data.GetGameFileInUse();
 
 		} else {
 			Debug.Log ("File not found, returning FALSE");

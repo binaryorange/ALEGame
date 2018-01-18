@@ -6,8 +6,7 @@ public class testPlugin : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		StateManager.Instance.Player.testPlugin.SetPluginName ("test");
-		StateManager.Instance.Player.testPlugin.SetPluginAction(Plugin.PluginAction.IncreaseMaximumHealth);
+		StateManager.Instance.Player.SetCurrentPlugin(Plugin.PluginAction.IncreaseFlightHeight);
 		
 	}
 	

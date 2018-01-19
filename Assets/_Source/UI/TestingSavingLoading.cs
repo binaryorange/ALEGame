@@ -6,38 +6,41 @@ using UnityEngine;
 public class TestingSavingLoading : MonoBehaviour {
 
 	FileManager FileManager = new FileManager();
+	PlayerData Player = StateManager.Instance.Player;
 
 	// call the SetCurrentXP method
 	public void IncreaseXP() {
 		StateManager.Instance.Player.SetCurrentXP(1);
-		Debug.Log ("Player XP now at: " + StateManager.Instance.Player.GetCurrentXP());
+		Debug.Log ("Player XP now at: " + Player.GetCurrentXP());
 	}
 
 	public void DecreaseXP() {
 		StateManager.Instance.Player.SetCurrentXP(-1);
-		Debug.Log ("Player XP now at: " + StateManager.Instance.Player.GetCurrentXP());
+		Debug.Log ("Player XP now at: " + Player.GetCurrentXP());
 	}
 
 	// find out what level we're in
 	public void GetLevelName() {
-		Debug.Log("Level name: " + StateManager.Instance.Player.GetLevelName());
+		Debug.Log("Level name: " + Player.GetLevelName());
 	}
 
 	// save the level
 	public void Save() {
-		FileManager.SaveGame (StateManager.Instance.GetSelectedGameFile (), StateManager.Instance.Player);
+		StateManager.Instance.Player = Player;
+		FileManager.SaveGame (StateManager.Instance.GetSelectedGameFile (), Player);
 		Debug.Log ("Saved Game");
 	}
 
 	// load the level
 	public void Load() {
 		FileManager.LoadGame (StateManager.Instance.GetSelectedGameFile());
+		Player = StateManager.Instance.Player;
 		Debug.Log ("Load Game");
 	}
 
 	// reset values
 	public void Reset() {
-		FileManager.NewGame (StateManager.Instance.GetSelectedGameFile(), StateManager.Instance.Player);
+		FileManager.NewGame (StateManager.Instance.GetSelectedGameFile(), Player);
 	}
 
 	// select game files
@@ -48,18 +51,18 @@ public class TestingSavingLoading : MonoBehaviour {
 	}
 
 	public void SetValues() {
-		StateManager.Instance.Player.SetCurrentGizmos (2);
-		StateManager.Instance.Player.SetCurrentDooDads (99);
-		StateManager.Instance.Player.SetCurrentScrews (15);
+		Player.SetCurrentGizmos (5);
+		Player.SetCurrentDooDads (3);
+		Player.SetCurrentScrews (2);
 	}
 	public void AddScrew() {
-		StateManager.Instance.Player.SetCurrentScrews (1);
-		Debug.Log ("Screws: " + StateManager.Instance.Player.GetCurrentScrews().ToString() + " : DooDads: " + StateManager.Instance.Player.GetCurrentDooDads().ToString() + " : Gizmos: " + StateManager.Instance.Player.GetCurrentGizmos().ToString());
+		Player.SetCurrentScrews (1);
+		Debug.Log ("Screws: " + Player.GetCurrentScrews().ToString() + " : DooDads: " + Player.GetCurrentDooDads().ToString() + " : Gizmos: " + Player.GetCurrentGizmos().ToString());
 	}
 
 	public void RemoveGizmo() {
-		StateManager.Instance.Player.SetCurrentGizmos (-1);
-		Debug.Log ("Screws: " + StateManager.Instance.Player.GetCurrentScrews().ToString() + " : DooDads: " + StateManager.Instance.Player.GetCurrentDooDads().ToString() + " : Gizmos: " + StateManager.Instance.Player.GetCurrentGizmos().ToString());
+		Player.SetCurrentGizmos (-1);
+		Debug.Log ("Screws: " + Player.GetCurrentScrews().ToString() + " : DooDads: " + Player.GetCurrentDooDads().ToString() + " : Gizmos: " + Player.GetCurrentGizmos().ToString());
 	}
 
 	public void RemoveDooDad() {

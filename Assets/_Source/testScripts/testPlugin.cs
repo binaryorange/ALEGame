@@ -6,7 +6,7 @@ public class testPlugin : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		StateManager.Instance.Player.SetCurrentPlugin(Plugin.PluginAction.IncreaseFlightHeight);
+		StateManager.Instance.Player.SetCurrentPlugin(Plugin.PluginActions.IncreaseFlightHeight);
 		
 	}
 	

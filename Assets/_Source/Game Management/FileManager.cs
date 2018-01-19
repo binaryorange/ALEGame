@@ -23,13 +23,13 @@ public class FileManager {
 			PlayerInfoToCreate.SetCurrentXP(0.0f);
 			PlayerInfoToCreate.SetCurrentHealth(100.0f);
 			PlayerInfoToCreate.SetCurrentPower(100.0f);
-			PlayerInfoToCreate.SetCurrentWeapon(0);
+			PlayerInfoToCreate.SetCurrentWeapon(WeaponData.WeaponNames.NONE);
 			PlayerInfoToCreate.SetCurrentAmmo(0);
 			PlayerInfoToCreate.SetCurrentScrews(0);
 			PlayerInfoToCreate.SetCurrentDooDads(0);
 			PlayerInfoToCreate.SetCurrentGizmos(0);
 			PlayerInfoToCreate.SetCurrentComponents(0);
-			PlayerInfoToCreate.SetCurrentPlugin (Plugin.PluginAction.Default);
+			PlayerInfoToCreate.SetCurrentPlugin (Plugin.PluginActions.Default);
 
 			// now save the file to disk
 			SaveGame(GameFile, PlayerInfoToCreate);

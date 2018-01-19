@@ -16,8 +16,15 @@ public class Plugin {
 	private bool bIncreasesHealthRegen = false;
 	private bool bDoublesAmmo = false;
 
-	/// Enum which is used to determine what values should be turned to true on the plugin object
-	public enum PluginAction {
+	/// Enum which stores the CATEGORIES of the plugins
+	public enum PluginCategories {
+		NONE,
+		Regeneration,
+		Bonus
+	};
+
+	/// Enum which stores the NAMES of the plugins
+	public enum PluginActions {
 		Default,
 		Active,
 		IncreaseFlightHeight,
@@ -28,44 +35,70 @@ public class Plugin {
 		DoubleAmmo
 	};
 
-	private PluginAction Action;
+	private PluginCategories Category;
+	private PluginActions Action;
 
-	// set the name and the first action
-	public void SetPluginName(string PluginName) {
-		Name = PluginName;
-	}
+	/// Creates (or enables) and sets the properties of a Plugin object through PluginActions
+	public void CreatePlugin(PluginActions ActionToEnable) {
+		// Set Action to the user-provided action
+		Action = ActionToEnable;
 
-	public void SetPluginAction(PluginAction ActionToEnable) {
-	
 		switch (ActionToEnable) {
-		case PluginAction.IncreaseFlightHeight:
-			bIncreasesFlightHeight = true;       // Increase the default flight height
-			break;
-
-		case PluginAction.IncreaseSpeed:
-			bIncreasesSpeed = true;              // Increase the speed of the player
-			break;
-
-		case PluginAction.IncreasePowerRegen:
-			bIncreasesPowerRegen = true;         // Increase rate at which power regenerates
-			break;
-
-		case PluginAction.IncreaseMaximumHealth:
-			bIncreasesMaximumHealth = true;      // Increase maximum health
+		// Increase the default flight height
+		case PluginActions.IncreaseFlightHeight:
+			Name = "Super Height";
+			Category = PluginCategories.Bonus;
+			bIncreasesFlightHeight = true;
 			break;
 		
-		case PluginAction.IncreaseHealthRegen:
-			bIncreasesHealthRegen = true;        // Increase health regeneration speed
+		// Increase the speed of the player
+		case PluginActions.IncreaseSpeed:
+			Name = "Charge";
+			Category = PluginCategories.Bonus;
+			bIncreasesSpeed = true;            
+			break;
+	
+		// Increase rate at which power regenerates
+		case PluginActions.IncreasePowerRegen:
+			Name = "Power Regeneration Boost";
+			Category = PluginCategories.Regeneration;
+			bIncreasesPowerRegen = true;       
 			break;
 
-		case PluginAction.DoubleAmmo:
-			bDoublesAmmo = true;                 // Doubles ALL ammo in the player's weapon caches
+		// Increase maximum health
+		case PluginActions.IncreaseMaximumHealth:
+			Name = "Health Boost";
+			Category = PluginCategories.Bonus;
+			bIncreasesMaximumHealth = true;
+			break;
+
+		// Increase health regeneration speed
+		case PluginActions.IncreaseHealthRegen:
+			Name = "Speedy Recovery";
+			Category = PluginCategories.Regeneration;
+			bIncreasesHealthRegen = true;
+			break;
+
+		// Doubles ALL ammo in the player's weapon caches
+		case PluginActions.DoubleAmmo:
+			Name = "Ammunition Doubulation";
+			Category = PluginCategories.Bonus;
+			bDoublesAmmo = true;
 			break;
 		default:
 			break;
 		}
+	}
 
-		// set the Action variable to the selected action
-		Action = ActionToEnable;
+	public string GetName() {
+		return Name;
+	}
+
+	public PluginCategories GetCategory() {
+		return Category;
+	}
+
+	public PluginActions GetAction() {
+		return Action;
 	}
 }

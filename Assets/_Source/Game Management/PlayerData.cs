@@ -24,7 +24,7 @@ public class PlayerData {
 	private int CurrentDooDads;
 	private int CurrentGizmos;
 	private int CurrentComponents;
-	private Plugin CurrentPlugin;
+	private Plugin CurrentPlugin = new Plugin();
 
 	// Setter methods
 	public void SetGameFileInUse(bool state) {
@@ -66,8 +66,8 @@ public class PlayerData {
 	public void SetCurrentScrews(int Screws) {
 		CurrentScrews += Screws;
 
-		// check if we have 100 screws. If we do, add 1 to our DooDads and reset screws
-		if(CurrentScrews >= 100) {
+		// check if we have 25 screws. If we do, add 1 to our DooDads and reset screws
+		if(CurrentScrews >= 25) {
 			SetCurrentDooDads (1);
 
 			int difference = CurrentScrews - 100;
@@ -82,11 +82,11 @@ public class PlayerData {
 	public void SetCurrentDooDads(int DooDads) {
 		CurrentDooDads += DooDads;
 
-		// check if we have 100 DooDads. If we do, add 1 to our Gizmos and reset DooDads
-		if(CurrentDooDads >= 100) {
+		// check if we have 50 DooDads. If we do, add 1 to our Gizmos and reset DooDads
+		if(CurrentDooDads >= 50) {
 			SetCurrentGizmos (1);
 
-			int difference = CurrentDooDads - 100;
+			int difference = CurrentDooDads - 50;
 
 			CurrentDooDads = difference;
 		}
@@ -113,12 +113,10 @@ public class PlayerData {
 
 	public void SetCurrentComponents(int Components){
 		CurrentComponents += Components;
-
-		// check if we have spent a Component. If we have, reduce the amount
 	}
 
-	public void SetCurrentPlugin(Plugin.PluginAction SelectedPlugin) {
-		CurrentPlugin.SetPluginAction (SelectedPlugin);
+	public void SetCurrentPlugin(Plugin.PluginActions SelectedPlugin) {
+		CurrentPlugin.CreatePlugin (SelectedPlugin);
 	}
 
 	// Getter methods
@@ -148,5 +146,5 @@ public class PlayerData {
 
 	public int GetCurrentComponents() { return CurrentComponents; }
 
-	public Plugin GetCurrentPlugin() { return CurrentPlugin; }
+	public string GetCurrentPlugin() { return CurrentPlugin.GetName(); }
 }

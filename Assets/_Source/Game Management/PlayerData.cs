@@ -18,7 +18,7 @@ public class PlayerData {
 	private float CurrentXP;
 	private float CurrentHealth;
 	private float CurrentPower;
-	private int CurrentWeapon; // TODO: Make a Weapon class for this field
+	private WeaponData.WeaponNames CurrentWeapon;
 	private int CurrentAmmo;   // TODO: Make Ammo field a part of the Weapons class
 	private int CurrentScrews;
 	private int CurrentDooDads;
@@ -55,7 +55,7 @@ public class PlayerData {
 		CurrentPower += Power;
 	}
 
-	public void SetCurrentWeapon(int WeaponID) {
+	public void SetCurrentWeapon(WeaponData.WeaponNames WeaponID) {
 		CurrentWeapon = WeaponID;
 	}
 
@@ -65,18 +65,56 @@ public class PlayerData {
 
 	public void SetCurrentScrews(int Screws) {
 		CurrentScrews += Screws;
+
+		// check if we have 100 screws. If we do, add 1 to our DooDads and reset screws
+		if(CurrentScrews >= 100) {
+			SetCurrentDooDads (1);
+
+			int difference = CurrentScrews - 100;
+
+			CurrentScrews = difference;
+		}
+
+		// Make sure we can't go below zero!
+		if(CurrentScrews <= 0) { CurrentScrews = 0; }
 	}
 
 	public void SetCurrentDooDads(int DooDads) {
 		CurrentDooDads += DooDads;
+
+		// check if we have 100 DooDads. If we do, add 1 to our Gizmos and reset DooDads
+		if(CurrentDooDads >= 100) {
+			SetCurrentGizmos (1);
+
+			int difference = CurrentDooDads - 100;
+
+			CurrentDooDads = difference;
+		}
+
+		// Make sure we can't go below zero!
+		if(CurrentDooDads <=0 ) { CurrentDooDads = 0; }
 	}
 
 	public void SetCurrentGizmos(int Gizmos) {
 		CurrentGizmos += Gizmos;
+
+		// check if we have collected 100 Gizmos. If we do, add 1 to our Components and reset Gizmos
+		if(CurrentGizmos >= 100) {
+			SetCurrentComponents (1);
+
+			int difference = CurrentGizmos - 100;
+
+			CurrentGizmos = difference;
+		}
+
+		// Make sure we can't go below zero!
+		if(CurrentGizmos <=0) { CurrentGizmos = 0; }
 	}
 
 	public void SetCurrentComponents(int Components){
 		CurrentComponents += Components;
+
+		// check if we have spent a Component. If we have, reduce the amount
 	}
 
 	public void SetCurrentPlugin(Plugin.PluginAction SelectedPlugin) {
@@ -98,7 +136,7 @@ public class PlayerData {
 
 	public float GetCurrentPower() { return CurrentPower; }
 
-	public int GetCurrentWeapon() { return CurrentWeapon; }
+	public WeaponData.WeaponNames GetCurrentWeapon() { return CurrentWeapon; }
 
 	public int GetCurrentAmmo() { return CurrentAmmo; }
 

@@ -46,4 +46,26 @@ public class TestingSavingLoading : MonoBehaviour {
 
 		Debug.Log ("Game File set to " + StateManager.Instance.GetSelectedGameFile());
 	}
+
+	public void SetValues() {
+		StateManager.Instance.Player.SetCurrentGizmos (2);
+		StateManager.Instance.Player.SetCurrentDooDads (99);
+		StateManager.Instance.Player.SetCurrentScrews (15);
+	}
+	public void AddScrew() {
+		StateManager.Instance.Player.SetCurrentScrews (1);
+		Debug.Log ("Screws: " + StateManager.Instance.Player.GetCurrentScrews().ToString() + " : DooDads: " + StateManager.Instance.Player.GetCurrentDooDads().ToString() + " : Gizmos: " + StateManager.Instance.Player.GetCurrentGizmos().ToString());
+	}
+
+	public void RemoveGizmo() {
+		StateManager.Instance.Player.SetCurrentGizmos (-1);
+		Debug.Log ("Screws: " + StateManager.Instance.Player.GetCurrentScrews().ToString() + " : DooDads: " + StateManager.Instance.Player.GetCurrentDooDads().ToString() + " : Gizmos: " + StateManager.Instance.Player.GetCurrentGizmos().ToString());
+	}
+
+	public void RemoveDooDad() {
+		StateManager.Instance.Player.SetCurrentDooDads (-1);
+		Debug.Log ("Screws: " + StateManager.Instance.Player.GetCurrentScrews().ToString() + " : DooDads: " + StateManager.Instance.Player.GetCurrentDooDads().ToString() + " : Gizmos: " + StateManager.Instance.Player.GetCurrentGizmos().ToString());
+	}
+
+
 }

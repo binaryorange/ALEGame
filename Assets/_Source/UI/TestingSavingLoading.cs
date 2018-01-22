@@ -26,7 +26,7 @@ public class TestingSavingLoading : MonoBehaviour {
 
 	// save the level
 	public void Save() {
-		StateManager.Instance.Player = Player;
+		StateManager.Instance.SetGlobalPlayerInfo(Player);
 		FileManager.SaveGame (StateManager.Instance.GetSelectedGameFile (), Player);
 		Debug.Log ("Saved Game");
 	}
@@ -34,7 +34,7 @@ public class TestingSavingLoading : MonoBehaviour {
 	// load the level
 	public void Load() {
 		FileManager.LoadGame (StateManager.Instance.GetSelectedGameFile());
-		Player = StateManager.Instance.Player;
+		Player = StateManager.Instance.GetGlobalPlayerInfo();
 		Debug.Log ("Load Game");
 	}
 

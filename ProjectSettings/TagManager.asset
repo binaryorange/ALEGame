@@ -6,6 +6,14 @@ TagManager:
   tags:
   - GlobalGameManager
   - StateManager
+  - Missile Launcher
+  - Ballistic
+  - Energy
+  - Rifle
+  - Grenade Launcher
+  - Laser Pistol
+  - Laser Rifle
+  - Focused Cannon
   layers:
   - Default
   - TransparentFX

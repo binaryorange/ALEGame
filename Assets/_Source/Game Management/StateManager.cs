@@ -67,4 +67,15 @@ public class StateManager : MonoBehaviour {
 		GameManager = GameObject.Find ("StateManager");
 		GameManager.tag = "StateManager";
 	}
+
+	/// Sets/udpates the GLOBAL Player object held in the State Manager. Called when loading new levels/changing scenes.
+	public void SetGlobalPlayerInfo(PlayerData InfoToUpdate) {
+		Player = InfoToUpdate;
+	}
+
+	/// Gets the data from the GLOBAL Player object held in the State Manager.
+	public PlayerData GetGlobalPlayerInfo() {
+		return Player;
+	}
+		
 }

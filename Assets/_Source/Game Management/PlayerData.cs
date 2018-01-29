@@ -25,14 +25,6 @@ public class PlayerData {
 	private int CurrentGizmos;
 	private PluginData CurrentPlugin = new PluginData();
 
-	// these booleans are used to determine what WEAPONS are available for the player to switch to
-	private bool bPlayerHasMissileLauncher = false;
-	private bool bPlayerHasRifle = false;
-	private bool bPlayerHasGrenadeLauncher = false;
-	private bool bPlayerHasLaserPistol = false;
-	private bool bPlayerHasLaserRifle = false;
-	private bool bPlayerHasFocusedCannon = false;
-
 	// these lists determine what the player has in their inventory
 	private int WeaponListIndex;
 	private int CurrentPluginListIndex;
@@ -106,7 +98,6 @@ public class PlayerData {
 			// activate the chosen plugin
 			PluginsList [nextPluginID].bIsActive = true;
 
-	
 			// update the current plugin and index
 			CurrentPlugin = PluginsList [nextPluginID];
 			CurrentPluginListIndex = nextPluginID;

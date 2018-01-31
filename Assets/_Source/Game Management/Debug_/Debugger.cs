@@ -11,6 +11,8 @@ public class Debugger : MonoBehaviour {
 	public TextMeshProUGUI Grounded;
 	public TextMeshProUGUI Position;
 	public TextMeshProUGUI ActivePlugin;
+	public TextMeshProUGUI IsFlying;
+	public TextMeshProUGUI LastY;
 
 	PlayerController pc;
 
@@ -31,9 +33,9 @@ public class Debugger : MonoBehaviour {
 	void Update () {
 
 		// if debug is active
-		if(Input.GetKey(KeyCode.O)) {
-			
-			DebugUIText.SetActive (!flip);
+		if(Input.GetKeyDown(KeyCode.O)) {
+			flip = !flip;
+			DebugUIText.SetActive (flip);
 		}
 
 		// set the text 
@@ -41,5 +43,7 @@ public class Debugger : MonoBehaviour {
 		Grounded.text = "Grounded: " + pc.IsGrounded ().ToString ();
 		Position.text = "Player Position: " + PlayerToDebug.transform.position.ToString ();
 		ActivePlugin.text = "Active Plugin: " + StateManager.Instance.Player.GetCurrentSelectedPluginEffect ().ToString();
+		IsFlying.text = "Is Flying: " + pc.isFlying.ToString ();
+		LastY.text = "Last Y: " + pc.lastY.ToString();
 	}
 }

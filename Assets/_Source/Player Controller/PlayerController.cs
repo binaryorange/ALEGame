@@ -12,7 +12,11 @@ public class PlayerController : MonoBehaviour {
 	public float TopGravity = -10f;
 	public float GravityMultiplier = 1f;
 	public float Jump = 10f;
-	public float GroundDistanceFeeler = 0.2f;
+	public float FlightHeight = 10.0f;
+	public float FlightSpeed = 5.0f;
+	public float GroundDistanceFeeler = 0.1f;
+
+	public bool isFlying;
 
 	float GroundDistance;
 
@@ -27,6 +31,9 @@ public class PlayerController : MonoBehaviour {
 	float moveH;
 	float moveV;
 
+	// this stores the player's last Y, to keep them from flying infinitely up
+	public float lastY;
+
 	void Start() {
 		Player = GetComponent<CharacterController> ();
 		GroundDistance = Player.bounds.extents.y;
@@ -34,15 +41,23 @@ public class PlayerController : MonoBehaviour {
 
 	// our update method
 	void Update() {
+		// get the last Y of the player
+		if (IsGrounded ()) {
+			lastY = transform.position.y;
+		}
 		
 		// get input
 		GetInput();
 
 		// Apply our gravity to the player
-		ApplyGravity ();
+		if (!isFlying) {
+			ApplyGravity ();
+		}
 
 		// check if we are jumping
 		PlayerJump ();
+
+		Fly ();
 
 		// Move the player
 		MovePlayer();
@@ -76,6 +91,28 @@ public class PlayerController : MonoBehaviour {
 		if (IsGrounded() && Input.GetButtonDown("Jump")) {
 			Gravity += Jump;
 		}
+	}
+		
+	/// Fly the player
+	void Fly() {
+		if (Input.GetButton ("Fly")) {
+			Gravity = 0f;
+			isFlying = true;
+
+			// set up a flight path Vector for the player object
+			Vector3 flightPath = new Vector3(moveH, lastY + FlightHeight, moveV) * Time.deltaTime;
+			Player.Move (flightPath);
+
+			Vector3 currentPosition = transform.position;
+			if (currentPosition.y >= lastY + FlightHeight) {
+				currentPosition.y = lastY + FlightHeight;
+			}
+
+			transform.position = currentPosition;
+
+		}else if (!Input.GetButton("Fly")) {
+			isFlying = false;
+		} 
 	}
 		
 	/// Move the player with its built-in Move() method
